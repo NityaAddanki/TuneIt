@@ -3,9 +3,9 @@ import {View, Text, Button} from "react-native";
 
 export default function HomeScreen ({navigation} : any) {
     return (
-        <View style ={{flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style ={styles.container}>
             {/*TuneIt*/}
-            <Text style={{fontSize: 24}}>TuneIt</Text>
+            <Text style={styles.title}>TuneIt</Text>
 
             <Button 
             title = "Add to Spotify"
