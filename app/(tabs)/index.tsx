@@ -1,11 +1,13 @@
 import { Jersey20_400Regular } from "@expo-google-fonts/jersey-20";
 import { useFonts } from "expo-font";
-import React from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import React, {useState} from "react";
+import { Image, Modal, Pressable, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
 
 export default function HomeScreen ({navigation} : any) {
   
+  const [openModal, setOpenModal] = useState(false);
+
   const [fontsLoaded] = useFonts({
     Jersey20_400Regular
   });
@@ -18,9 +20,54 @@ export default function HomeScreen ({navigation} : any) {
     );
   }  
   
-  
   return (
         <View style ={page.container}>
+
+          <Modal visible={openModal} transparent = {true} animationType="slide">
+            <View style = {page.overlay}>
+
+              <View style = {[items.blueBox, {height: 825}]}>
+                <Text style = {[page.directions, {fontSize: 30}, {marginTop: -750}]}>How___ are you?</Text>
+                <Text style = {[page.directions, {fontSize: 20}]}>1 - least  5 - most</Text>
+
+                {Array.from({length: 8}).map((_,rowIndex) => (
+                  < View key = {rowIndex} style = {items.radioSect}>
+                    {[1,2,3,4,5].map((num) => (
+                      <TouchableOpacity key = {num} style = {items.radioButton}>
+                        <Text style = {[page.directions, {fontSize: 20}]}>1</Text>
+                      </TouchableOpacity>
+                    ))}
+                  
+
+                  <TouchableOpacity style = {items.radioButton}>
+                    <Text style = {[page.directions, {fontSize: 20}]}>2</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style = {items.radioButton}>
+                    <Text style = {[page.directions, {fontSize: 20}]}>3</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style = {items.radioButton}>
+                    <Text style = {[page.directions, {fontSize: 20}]}>4</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style = {items.radioButton}>
+                    <Text style = {[page.directions, {fontSize: 20}]}>5</Text>
+                  </TouchableOpacity>
+                </View>
+                ))}
+                
+                
+
+                <Pressable style = {items.quizButton}
+                onPress = { () => {
+                  setOpenModal(false);
+                }}>
+                </Pressable>
+
+              </View>
+            </View>
+          </Modal>
 
             {/*TuneIt*/}
           <View style={items.titleRow}>
@@ -69,16 +116,10 @@ export default function HomeScreen ({navigation} : any) {
             <Pressable
                   style = {items.quizButton}
                   onPress={() => {
-                      alert('Coming soon!!! Connect to Spotify to add your favorite songs!')
+                    setOpenModal(true)
                   }}>
                     <Text style = {[page.jersey20, {fontSize: 30}, {marginTop: 10}]}>Take Quiz</Text>
             </Pressable>
-
-            
-            <Image
-            source={Cloud}
-            style = {[items.cloud, {top: '5%'}, {left: '65%'}]}>  
-            </Image>
             
         </View>
   );
@@ -119,6 +160,12 @@ const page = StyleSheet.create({
     width: 392,
     textAlign: "center",
     flexDirection: "column",
+  },
+  overlay : {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    //backgroundColor: '#5D6C86'
   }
 });
 
@@ -178,7 +225,7 @@ const items = StyleSheet.create({
     alignItems: "center",   // vertically aligns clouds with text
     justifyContent: "center",
     marginBottom: 5,
-    marginTop: 70
+    marginTop: 10
   },
   
   quizButton : {
@@ -198,5 +245,22 @@ const items = StyleSheet.create({
     height: 60,
     opacity: 0.8,
     resizeMode: "contain"
+  },
+  radioButton : {
+    width: 44,
+    height: 44,
+    borderColor: "#a1acbdff",
+    borderRadius: 20,
+    borderWidth: 2,
+    backgroundColor: "#8D98AA",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 10
+  },
+  radioSect : {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap"
   }
 })
