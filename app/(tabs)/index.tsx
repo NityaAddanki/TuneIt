@@ -1,12 +1,14 @@
 import { Jersey20_400Regular } from "@expo-google-fonts/jersey-20";
 import { useFonts } from "expo-font";
-import React, {useState} from "react";
-import { Image, Modal, Pressable, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
 
 export default function HomeScreen ({navigation} : any) {
   
   const [openModal, setOpenModal] = useState(false);
+  const [selected, setSelected] = useState<string | null>(null);
+  const options = [1,2,3,4,5];
 
   const [fontsLoaded] = useFonts({
     Jersey20_400Regular
@@ -27,42 +29,35 @@ export default function HomeScreen ({navigation} : any) {
             <View style = {page.overlay}>
 
               <View style = {[items.blueBox, {height: 825}]}>
-                <Text style = {[page.directions, {fontSize: 30}, {marginTop: -750}]}>How___ are you?</Text>
-                <Text style = {[page.directions, {fontSize: 20}]}>1 - least  5 - most</Text>
+                <Text style = {[page.directions, {fontSize: 30}, {marginTop: -1}]}>How___ are you?</Text>
+                <Text style = {[page.directions, {fontSize: 20}, {marginBottom: 15}]}>1 - least  5 - most</Text>
 
-                {Array.from({length: 8}).map((_,rowIndex) => (
-                  < View key = {rowIndex} style = {items.radioSect}>
-                    {[1,2,3,4,5].map((num) => (
-                      <TouchableOpacity key = {num} style = {items.radioButton}>
-                        <Text style = {[page.directions, {fontSize: 20}]}>1</Text>
-                      </TouchableOpacity>
-                    ))}
-                  
-
-                  <TouchableOpacity style = {items.radioButton}>
-                    <Text style = {[page.directions, {fontSize: 20}]}>2</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style = {items.radioButton}>
-                    <Text style = {[page.directions, {fontSize: 20}]}>3</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style = {items.radioButton}>
-                    <Text style = {[page.directions, {fontSize: 20}]}>4</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style = {items.radioButton}>
-                    <Text style = {[page.directions, {fontSize: 20}]}>5</Text>
-                  </TouchableOpacity>
+                <View>
+                  {['excited','energetic','happy','calm','sleepy','sad','bored','anxious'].map(mood =>(
+                    <View key = {mood}>
+                       <Text style = {[page.directions, {fontSize: 20},]}>{mood}</Text>
+                       <View style = {[items.radioSect, {marginLeft: 50}]}>
+                        {['1','2','3','4','5'].map(feeling => (
+                        <View key = {feeling}>
+                          <Text>{feeling}</Text>
+                          <TouchableOpacity style = {items.outer}
+                          onPress = {() => setSelected(mood)}>
+                              {selected === mood && <View style = {items.inner}/>}
+                          </TouchableOpacity>
+                        </View>
+                      ))}
+                      </View>
+                    </View>
+                  ))}
                 </View>
-                ))}
-                
-                
 
-                <Pressable style = {items.quizButton}
+
+                <Pressable style = {[items.quizButton, {height: 35}, {width: 125}]}
                 onPress = { () => {
                   setOpenModal(false);
                 }}>
+                <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Submit</Text>
+
                 </Pressable>
 
               </View>
@@ -231,7 +226,7 @@ const items = StyleSheet.create({
   quizButton : {
     flexShrink: 0,
     width: 195,
-    height: 58,
+    height: 50,
     borderRadius: 20,
     backgroundColor: '#BFCADD',
     opacity: 0.75,
@@ -255,12 +250,31 @@ const items = StyleSheet.create({
     backgroundColor: "#8D98AA",
     justifyContent: "center",
     alignItems: "center",
-    margin: 10
   },
   radioSect : {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap"
+    justifyContent: "space-evenly",
+    gap: 20,
+    flexWrap: "nowrap",
+    padding: 10,
+    width: 100,
+    //backgroundColor: "black"
+  },
+  outer: {
+    width: 40,
+    height: 30,
+    borderWidth: 1,
+    borderRadius: 15,
+    borderColor: '#8D98AA',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inner : {
+    width: 30,
+    height: 20,
+    backgroundColor: '#8D98AA',
+    borderRadius: 10,
   }
+
 })
