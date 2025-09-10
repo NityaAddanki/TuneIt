@@ -7,8 +7,7 @@ import Cloud from '../../assets/images/source_image.png';
 export default function HomeScreen ({navigation} : any) {
   
   const [openModal, setOpenModal] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
-  const options = [1,2,3,4,5];
+  const [selected, setSelected] = useState<{ [key: string]: string }>({});
 
   const [fontsLoaded] = useFonts({
     Jersey20_400Regular
@@ -41,8 +40,9 @@ export default function HomeScreen ({navigation} : any) {
                         <View key = {feeling}>
                           <Text>{feeling}</Text>
                           <TouchableOpacity style = {items.outer}
-                          onPress = {() => setSelected(mood)}>
-                              {selected === mood && <View style = {items.inner}/>}
+                          onPress = {() => 
+                            setSelected( {...selected, [mood]: feeling})}>
+                              {selected[mood] === feeling && <View style = {items.inner}/>}
                           </TouchableOpacity>
                         </View>
                       ))}
