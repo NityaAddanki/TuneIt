@@ -13,7 +13,7 @@ export default function HomeScreen () {
   const router = useRouter();
 
   const handleLogout = () => {
-    router.back()
+    router.replace('/login');
   }
 
   const [fontsLoaded] = useFonts({
@@ -80,11 +80,13 @@ export default function HomeScreen () {
           <View style={items.titleRow}>
             <Image
             source={Cloud}
+            resizeMode= "contain"
             style = {items.cloud}>  
             </Image>
             <Text style={[page.jersey20, {marginTop: 10}, {width: 180}]}>TuneIt</Text>
             <Image
             source={Cloud}
+            resizeMode= "contain"
             style = {items.cloud}>  
             </Image>
           </View>
@@ -251,7 +253,7 @@ const items = StyleSheet.create({
     width: 90,
     height: 60,
     opacity: 0.8,
-    resizeMode: "contain"
+    //resizeMode: "contain"
   },
   radioButton : {
     width: 44,

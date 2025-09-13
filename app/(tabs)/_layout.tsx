@@ -1,14 +1,18 @@
 // app/(tabs)/_layout.tsx
-import { Slot, useRouter } from 'expo-router';
-import { useEffect } from 'react';
+import { Tabs } from 'expo-router';
 
 export default function TabsLayout() {
-  const router = useRouter();
-
-  useEffect(() => {
-    // Navigate to login after mount
-    router.replace('/login');
-  }, []);
-
-  return <Slot />; // renders children routes
+  return (
+    <Tabs>
+      <Tabs.Screen 
+        name="home" 
+        options={{ 
+          title: 'Home',
+          headerShown: false,
+          tabBarStyle: {display: 'none'}
+        }} 
+      />
+      {/* Add other tab screens here if needed */}
+    </Tabs>
+  );
 }
