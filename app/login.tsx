@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
-import Cloud from '../../assets/images/source_image.png';
+import Cloud from '../assets/images/source_image.png';
 
 export default function login({navigation} : any) {
 
@@ -15,9 +15,9 @@ export default function login({navigation} : any) {
 
   const handleLogin = () => {
     if(username.trim().length <= 0 || password.trim().length <= 0) {
-      alert("please enter correct username and password")
+      alert("please enter correct username and password");
     } else {
-      router.push("/(tabs)/home");
+      router.push('/(tabs)/home');
     }
   }
 
