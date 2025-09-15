@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
+import {calculateResult} from "../results";
 
 export default function HomeScreen () {
   
@@ -48,7 +49,7 @@ export default function HomeScreen () {
                     <View key = {mood}>
                        <Text style = {[page.directions, {fontSize: 20},]}>{mood}</Text>
                        <View style = {[items.radioSect, {marginLeft: 50}]}>
-                        {['1','2','3','4','5'].map(feeling => (
+                        {['1','2','3','4','5'].map((feeling: string) => (
                         <View key = {feeling}>
                           <Text>{feeling}</Text>
                           <TouchableOpacity style = {items.outer}
