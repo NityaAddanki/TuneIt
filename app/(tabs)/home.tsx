@@ -4,7 +4,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
-import {calculateResult} from "../results";
+import { calculateResult } from "../results";
 
 export default function HomeScreen () {
   
@@ -15,6 +15,28 @@ export default function HomeScreen () {
 
   const handleLogout = () => {
     router.replace('/login');
+  }
+
+  function handleSubmit() {
+
+    if (Object.keys(selected).length == 0) {
+      setOpenModal(false);
+    } else if (Object.keys(selected).length < 8) {
+      alert("please answer all questions!");
+    } else {
+      console.log("final answers: ", selected);
+
+      const convertToNum = Object.fromEntries(
+        Object.entries(selected).map(([mood, val]) => [mood, parseInt(val)])
+      )
+
+      console.log("Numeric Answers: ", convertToNum);
+      
+      // calculate the arousal and valence of the quiz results
+      calculateResult(convertToNum);
+      setOpenModal(false);
+      setSelected({});
+    }
   }
 
   const [fontsLoaded] = useFonts({
@@ -67,7 +89,7 @@ export default function HomeScreen () {
 
                 <Pressable style = {[items.quizButton, {height: 35}, {width: 125}]}
                 onPress = { () => {
-                  setOpenModal(false);
+                  handleSubmit();
                 }}>
                 <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Submit</Text>
 
@@ -141,7 +163,7 @@ const page = StyleSheet.create({
     flex: 1,
     paddingVertical: 25,
     paddingHorizontal: 0,
-    backgroundColor: '#94A7C7',
+    backgroundColor: '#2a2a2bff',
     alignItems: "center",
     justifyContent: "center"
   },
@@ -163,9 +185,12 @@ const page = StyleSheet.create({
   directions: {
     fontSize: 44,
     fontFamily: "Jersey20_400Regular",
-    color: '#FFFF',
+    color: '#eeeeeeff',
     fontWeight: "400",
     letterSpacing: 4,
+    textShadowColor: "#4d4d4dff", // outline color
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 1,
     display: "flex",
     width: 392,
     textAlign: "center",
@@ -209,7 +234,12 @@ const items = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 1000,
-    backgroundColor: '#D0DCF0',
+    backgroundColor: '#d0dcf0e8',
+    borderWidth: 2,
+    borderColor: '#707885ff',
+    shadowOffset: {width: 1, height: 5},
+    shadowColor: '#000000a2',
+    shadowRadius: 1,
   },
   rightButton: {
     flex: 1,
@@ -217,7 +247,12 @@ const items = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 1000,
-    backgroundColor: '#D0DCF0',
+    backgroundColor: '#d0dcf0f1',
+    borderWidth: 2,
+    borderColor: '#707885ff',
+    shadowOffset: {width: 1, height: 5},
+    shadowColor: '#000000a2',
+    shadowRadius: 1,
   },
 
   buttonRow : {

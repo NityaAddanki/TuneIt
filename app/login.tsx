@@ -71,7 +71,7 @@ const page = StyleSheet.create({
     flex: 1,
     paddingVertical: 25,
     paddingHorizontal: 0,
-    backgroundColor: '#94A7C7',
+    backgroundColor: '#2a2a2bff',
     alignItems: "center",
     justifyContent: "center"
   },
@@ -140,6 +140,11 @@ const items = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 1000,
     backgroundColor: '#D0DCF0',
+    borderWidth: 7,
+    borderColor: '#707885ff',
+    shadowOffset: {width: 1, height: 5},
+    shadowColor: '#000000a2',
+    shadowRadius: 1,
   },
   rightButton: {
     flex: 1,
