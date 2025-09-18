@@ -20,9 +20,16 @@ const emotion_vals: { [key: string]: {arousal: number; valence: number} } = {
     joyful: { arousal: 0.9, valence: 0.9 },
     hopeful: { arousal: 0.4, valence: 0.7 },
     lonely: { arousal: -0.6, valence: -0.5 }
-};
+} as const;
+
+type Emotion = keyof typeof emotion_vals;
 
 export function calculateResult (selected: {[key:string]: number}) {
+
+    if (Object.keys(selected).length === 0) {
+        throw new Error("No emotions were selected");
+    }
+
     let totalArousal = 0;
     let totalValence = 0;
 
@@ -38,22 +45,38 @@ export function calculateResult (selected: {[key:string]: number}) {
     // Find the average arousal and valence
     const averageArousal = totalArousal / Object.keys(selected).length;
     const averageValence = totalValence / Object.keys(selected).length;
+
+    let finalMood = findMood(averageArousal, averageValence);
+
+    if (finalMood) {
+        calculateSong(finalMood);
+    } else {
+        throw new Error ("Unable to calculate emotion for questionnaire");
+    }
 }
 
-export function findMood(avgArousal: number, avgValence: number) {
+export function findMood(avgArousal: number, avgValence: number): Emotion|null {
 
-    let finalMood = "calm";
+    let finalMood: Emotion|null = null;
+    let minDistance = Infinity;
 
     for(const[key, value] of Object.entries(emotion_vals)) {
         const {arousal, valence} = emotion_vals[key];
 
-        const finalMood_arousal = emotion_vals[finalMood].arousal;
-        const finalMood_valence = emotion_vals[finalMood].valence;
-        const arousal_diff = Math.abs(arousal - avgArousal);
-        const valence_diff = Math.abs(valence - avgValence);
+        const arousal_diff = (arousal - avgArousal) ** 2;
+        const valence_diff = (valence - avgValence) ** 2;
 
-        
-        
+        if ((arousal_diff + valence_diff) < minDistance) {
+            minDistance = (arousal_diff + valence_diff);
+            finalMood = key as Emotion;
+        }
     }
 
+    return finalMood;
+
+}
+
+export function calculateSong(mood: Emotion) {
+
+    console.log(`Selected mood: ${mood}`);
 }

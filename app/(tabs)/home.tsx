@@ -54,7 +54,7 @@ export default function HomeScreen () {
   return (
         <View style ={page.container}>
 
-            <Pressable style = {[items.quizButton, {height: 35}, {width: 125}, {marginTop: 20}, {position: 'absolute'}, {flex: 1}, {top: "1%"}, {left: "1%"}]}
+            <Pressable style = {[items.leftButton, {height: 35}, {width: 125}, {marginTop: 20}, {position: 'absolute'}, {flex: 1}, {top: "1%"}, {left: "1%"}]}
                           onPress = { () => handleLogout()}>
                           <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Logout</Text>
             </Pressable>
@@ -210,8 +210,8 @@ const items = StyleSheet.create({
     maxWidth: 400,
     aspectRatio: 1,
     borderRadius: 6,
-    borderWidth: 7,
-    borderColor: '#4e6284ff',
+    borderWidth: 3,
+    borderColor: '#8a95a7ff',
     backgroundColor: '#5D6C86',
     shadowOffset: {width: 1, height: 5},
     shadowColor: '#000000a2',
