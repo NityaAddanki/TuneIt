@@ -77,6 +77,6 @@ export function findMood(avgArousal: number, avgValence: number): Emotion|null {
 }
 
 export function calculateSong(mood: Emotion) {
-
     console.log(`Selected mood: ${mood}`);
 }
+
