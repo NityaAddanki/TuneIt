@@ -6,7 +6,7 @@ import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import Cloud from '../assets/images/source_image.png';
 
-export default function login({navigation} : any) {
+export default function Login({navigation} : any) {
 
   const[username, setUsername] = useState("");
   const[password, setPassword] = useState("");

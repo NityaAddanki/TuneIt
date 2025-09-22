@@ -10,6 +10,18 @@ export default function HomeScreen () {
   
   const [openModal, setOpenModal] = useState(false);
   const [selected, setSelected] = useState<{ [key: string]: string }>({});
+  const [spotifyLoggedIn, setSpotifyLoggedIn] = useState(false);
+  const [song, setSong] = useState<string|null>(null);
+  const [authenticationModal, setAuthenticationModal] = useState(false);
+
+  // function to handle spotify login
+
+  const addToSpotify = () => {
+
+    if (!spotifyLoggedIn) {
+      setAuthenticationModal(true);
+    }
+  }
 
   const router = useRouter();
 
@@ -58,6 +70,25 @@ export default function HomeScreen () {
                           onPress = { () => handleLogout()}>
                           <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Logout</Text>
             </Pressable>
+
+          <Modal visible = {authenticationModal} transparent = {true}>
+            <View style = {page.modalDarkenBackground}>
+              <View style = {[page.authentication, {height: 180}]}>
+                <Text style = {{fontFamily: 'monospace',color: 'black',fontSize: 18, letterSpacing: 0}}> You're not connected to Spotify.</Text>
+                                <Text style = {{fontFamily: 'monospace',color: 'black',fontSize: 18, letterSpacing: 0, marginBottom: 10}}> Connect to Spotify?</Text>
+
+                <View style = {items.buttonRow}>
+                  <Pressable style = {[items.leftButton, {height: 35}, {width: 125}]}
+                    onPress = { () => setAuthenticationModal(false)}>
+                    <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Yes</Text>
+                  </Pressable>
+                  <Pressable style = {[items.rightButton, {height: 35}, {width: 125}]}>
+                    <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>No</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </Modal>
 
           <Modal visible={openModal} transparent = {true} animationType="slide">
             <View style = {page.overlay}>
@@ -125,9 +156,9 @@ export default function HomeScreen () {
               <Pressable
                 style = {items.leftButton}
                 onPress={() => {
-                    alert('Coming soon!!! Connect to Spotify to add your favorite songs!')
+                    addToSpotify();
                 }}>
-                  <Text style = {items.boxText}>Add to Spotify</Text>
+                  <Text style = {{fontFamily: 'monospace',fontSize: 15, letterSpacing: 0}}>Add to Spotify</Text>
               </Pressable>
               
               <Pressable
@@ -135,15 +166,15 @@ export default function HomeScreen () {
                   onPress={() => {
                       alert('Coming soon!!! Connect to Spotify to add your favorite songs!')
                   }}>
-                    <Text style = {items.boxText}>History</Text>
+                    <Text style = {{fontFamily: 'monospace',fontSize: 15, letterSpacing: 0}}>History</Text>
               </Pressable>
 
             </View>
             
             <Text style = {[page.directions, {marginBottom: 20}]}> How are you feeling? </Text>
-            <Text style = {[page.directions, {fontSize:20}, {letterSpacing:2}]}> 1.Click on take quiz below </Text>
-            <Text style = {[page.directions, {fontSize:20}, {letterSpacing:2}]}> 2.Fill out questionnaire </Text>            
-            <Text style = {[page.directions, {fontSize:20}, {letterSpacing:2},{marginBottom: 20}]}> 3.Listen to recommended songs </Text>
+            <Text style = {{fontFamily: 'monospace',color: 'white',fontSize: 20, letterSpacing: 0}}> 1.Click on take quiz below </Text>
+            <Text style = {{fontFamily: 'monospace',color: 'white',fontSize: 20, letterSpacing: 0}}> 2.Fill out questionnaire </Text>            
+            <Text style = {{fontFamily: 'monospace',color: 'white',fontSize: 20, letterSpacing: 0, marginBottom: 15}}> 3.Listen to recommended songs </Text>
            
             <Pressable
                   style = {items.quizButton}
@@ -196,12 +227,43 @@ const page = StyleSheet.create({
     textAlign: "center",
     flexDirection: "column",
   },
+  regularText: {
+    fontSize: 44,
+    fontFamily: "Jersey20_400Regular",
+    color: '#1c1c1cff',
+    fontWeight: "400",
+    letterSpacing: 4,
+    display: "flex",
+    width: 392,
+    textAlign: "center",
+    flexDirection: "column",
+  },
   overlay : {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     //backgroundColor: '#5D6C86'
-  }
+  },
+  modalDarkenBackground : {
+    flex:1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000000a6"
+  },
+  authentication: {
+    width: '90%',
+    maxWidth: 400,
+    aspectRatio: 1,
+    borderRadius: 6,
+    borderWidth: 3,
+    borderColor: '#87aac4b6',
+    backgroundColor: '#d8d7d7ff',
+    shadowOffset: {width: 1, height: 5},
+    shadowColor: '#000000a2',
+    shadowRadius: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 const items = StyleSheet.create({
@@ -211,7 +273,7 @@ const items = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 6,
     borderWidth: 3,
-    borderColor: '#8a95a7ff',
+    borderColor: '#131313b6',
     backgroundColor: '#5D6C86',
     shadowOffset: {width: 1, height: 5},
     shadowColor: '#000000a2',
@@ -325,5 +387,4 @@ const items = StyleSheet.create({
     backgroundColor: '#8D98AA',
     borderRadius: 10,
   }
-
 })
