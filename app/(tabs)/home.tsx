@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
+import { request_spotify_oauth } from "../callback";
 import { calculateResult } from "../results";
 
 export default function HomeScreen () {
@@ -74,15 +75,16 @@ export default function HomeScreen () {
           <Modal visible = {authenticationModal} transparent = {true}>
             <View style = {page.modalDarkenBackground}>
               <View style = {[page.authentication, {height: 180}]}>
-                <Text style = {{fontFamily: 'monospace',color: 'black',fontSize: 18, letterSpacing: 0}}> You're not connected to Spotify.</Text>
+                <Text style = {{fontFamily: 'monospace',color: 'black',fontSize: 18, letterSpacing: 0}}> You are not connected to Spotify.</Text>
                                 <Text style = {{fontFamily: 'monospace',color: 'black',fontSize: 18, letterSpacing: 0, marginBottom: 10}}> Connect to Spotify?</Text>
 
                 <View style = {items.buttonRow}>
                   <Pressable style = {[items.leftButton, {height: 35}, {width: 125}]}
-                    onPress = { () => setAuthenticationModal(false)}>
+                    onPress = { () => request_spotify_oauth()}>
                     <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Yes</Text>
                   </Pressable>
-                  <Pressable style = {[items.rightButton, {height: 35}, {width: 125}]}>
+                  <Pressable style = {[items.rightButton, {height: 35}, {width: 125}]}
+                    onPress = { () => setAuthenticationModal(false)}>
                     <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>No</Text>
                   </Pressable>
                 </View>
@@ -166,7 +168,7 @@ export default function HomeScreen () {
                   onPress={() => {
                       alert('Coming soon!!! Connect to Spotify to add your favorite songs!')
                   }}>
-                    <Text style = {{fontFamily: 'monospace',fontSize: 15, letterSpacing: 0}}>History</Text>
+                    <Text style = {{fontFamily: 'monospace',fontSize: 15, letterSpacing: 0}}>Like</Text>
               </Pressable>
 
             </View>
@@ -194,7 +196,7 @@ const page = StyleSheet.create({
     flex: 1,
     paddingVertical: 25,
     paddingHorizontal: 0,
-    backgroundColor: '#2a2a2bff',
+    backgroundColor: '#302f2eff',
     alignItems: "center",
     justifyContent: "center"
   },

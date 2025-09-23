@@ -3,6 +3,7 @@
     "name": "TuneIt",
     "slug": "TuneIt",
     "version": "1.0.0",
+    "owner": "nityaadd",
     "orientation": "portrait",
     "scheme": "tuneit",
     "userInterfaceStyle": "automatic",
