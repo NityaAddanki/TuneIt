@@ -3,7 +3,8 @@ import * as AuthSession from 'expo-auth-session';
 // spotify oauth 
 
 const client_id = 'a37e482757564470a1b84b9fcb22ba07';
-// const redirect_uri = 'https://auth.expo.io/@nityaadd/TuneIt';
+const redirect_uri = "http://127.0.0.1:8081";
+
 
 
 const discovery = {
@@ -14,14 +15,13 @@ const discovery = {
 
 export async function request_spotify_oauth() {
 
-    const redirectUri = AuthSession.makeRedirectUri({scheme: 'tuneit'});
-    console.log("Redirect URI:", redirectUri);
+    console.log("Redirect URI:", redirect_uri);
     
     // create auth request
     const request = new AuthSession.AuthRequest({
         clientId: client_id,
         scopes: ['user-read-email', 'playlist-modify-public', 'playlist-modify-private'],
-        redirectUri,
+        redirectUri: redirect_uri,
         responseType: 'code',
         usePKCE: true,
     });
@@ -30,7 +30,8 @@ export async function request_spotify_oauth() {
     const result = await request.promptAsync(discovery);
 
     if (result.type === 'success') {
-
+        console.log("Authorization code:", result.params.code);
+    } else {
+        console.log("Auth failed or canceled:", result);
     }
-    console.log("Auth result: ", result);
 }
