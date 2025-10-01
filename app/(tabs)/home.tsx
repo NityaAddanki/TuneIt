@@ -1,11 +1,13 @@
 import { Jersey20_400Regular } from "@expo-google-fonts/jersey-20";
 import { useFonts } from "expo-font";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import * as SecureStore from 'expo-secure-store';
+import React, { useEffect, useState } from "react";
 import { Image, Modal, Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Cloud from '../../assets/images/source_image.png';
 import { request_spotify_oauth } from "../callback";
 import { calculateResult } from "../results";
+
 
 export default function HomeScreen () {
   
@@ -15,12 +17,24 @@ export default function HomeScreen () {
   const [song, setSong] = useState<string|null>(null);
   const [authenticationModal, setAuthenticationModal] = useState(false);
 
+  // check if user logged in: 
+  useEffect(() => {
+    const checkSpotifyLogin = async () => {
+      const flag = await SecureStore.getItemAsync('spotify_logged_in');
+      setSpotifyLoggedIn(flag === 'true');
+    };
+
+    checkSpotifyLogin();
+  }, []);
+
   // function to handle spotify login
 
   const addToSpotify = () => {
 
     if (!spotifyLoggedIn) {
       setAuthenticationModal(true);
+    } else {
+      console.log("User is already logged in to Spotify");
     }
   }
 
@@ -80,7 +94,10 @@ export default function HomeScreen () {
 
                 <View style = {items.buttonRow}>
                   <Pressable style = {[items.leftButton, {height: 35}, {width: 125}]}
-                    onPress = { () => request_spotify_oauth()}>
+                    onPress = {async () => {await request_spotify_oauth();
+                      setSpotifyLoggedIn(true);
+                      setAuthenticationModal(false);
+                    }}>
                     <Text style = {[page.jersey20, {fontSize: 25}, {marginTop: 5}]}>Yes</Text>
                   </Pressable>
                   <Pressable style = {[items.rightButton, {height: 35}, {width: 125}]}
@@ -157,8 +174,12 @@ export default function HomeScreen () {
             <View style = {items.buttonRow}>
               <Pressable
                 style = {items.leftButton}
-                onPress={() => {
-                    addToSpotify();
+                onPress={async () => {
+                  if (!spotifyLoggedIn) {
+                    setAuthenticationModal(true);
+                  } else {
+                    console.log("User is already logged in to Spotify");
+                  }
                 }}>
                   <Text style = {{fontFamily: 'monospace',fontSize: 15, letterSpacing: 0}}>Add to Spotify</Text>
               </Pressable>
