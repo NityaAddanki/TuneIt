@@ -19,54 +19,51 @@
 
 Follow these steps to run the app locally:
 
-1. **Install dependencies**
+### 1. Install dependencies
 ```bash
 npm install
-Start the app
+```
 
-bash
-Copy code
+### 2. Start the app
+```bash
 npx expo start
+```
+
 You can open the app in:
 
-Development build
+- Development build
+- Android emulator
+- iOS simulator
+- Expo Go (limited sandbox)
 
-Android emulator
+### 3. Start developing
 
-iOS simulator
+- Edit files inside the `app` directory
+- The project uses file-based routing for organization
 
-Expo Go (limited sandbox)
-
-Start developing
-
-Edit files inside the app directory
-
-The project uses file-based routing for organization
-
-Reset project (optional)
+### 4. Reset project (optional)
 
 If you want a fresh start:
-
-bash
-Copy code
+```bash
 npm run reset-project
-This moves the starter code to app-example and creates a blank app directory.
+```
 
-Tech Stack
-Languages: TypeScript, JavaScript
+This moves the starter code to `app-example` and creates a blank `app` directory.
 
-Frameworks: React Native, Expo
+---
 
-Tools: Git, VS Code
+## Tech Stack
 
-Next Steps / TODO
-Implement data storage and persistence for user preferences
+- **Languages:** TypeScript, JavaScript
+- **Frameworks:** React Native, Expo
+- **Tools:** Git, VS Code
 
-Add backend integration for real-time music recommendations
+---
 
-Improve app scalability and error handling
+## Next Steps / TODO
 
-Resources
-Expo Documentation – Learn the fundamentals or explore advanced topics
+- [ ] Implement data storage and persistence for user preferences
+- [ ] Add backend integration for real-time music recommendations
+- [ ] Improve app scalability and error handling
 
-Learn Expo Tutorial – Step-by-step guide to create cross-platform apps
+---
