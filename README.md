@@ -1,50 +1,72 @@
-# Welcome to your Expo app 👋
+# TuneIt 🎵
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**TuneIt** is a cross-platform music recommendation app built with **React Native and TypeScript**. It provides personalized music suggestions based on user mood, with a functional and interactive UI.
 
-## Get started
+> ⚠️ **Work in progress:** The front-end UI is mostly complete. Data storage and persistence are still under development.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- Functional and intuitive UI for mood-based music recommendations
+- Cross-platform support: Android and iOS (via Expo)
+- Real-time updates for selected music preferences
+- Modular architecture for easy future expansion
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Follow these steps to run the app locally:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
+1. **Install dependencies**
 ```bash
+npm install
+Start the app
+
+bash
+Copy code
+npx expo start
+You can open the app in:
+
+Development build
+
+Android emulator
+
+iOS simulator
+
+Expo Go (limited sandbox)
+
+Start developing
+
+Edit files inside the app directory
+
+The project uses file-based routing for organization
+
+Reset project (optional)
+
+If you want a fresh start:
+
+bash
+Copy code
 npm run reset-project
-```
+This moves the starter code to app-example and creates a blank app directory.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Tech Stack
+Languages: TypeScript, JavaScript
 
-## Learn more
+Frameworks: React Native, Expo
 
-To learn more about developing your project with Expo, look at the following resources:
+Tools: Git, VS Code
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Next Steps / TODO
+Implement data storage and persistence for user preferences
 
-## Join the community
+Add backend integration for real-time music recommendations
 
-Join our community of developers creating universal apps.
+Improve app scalability and error handling
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Resources
+Expo Documentation – Learn the fundamentals or explore advanced topics
+
+Learn Expo Tutorial – Step-by-step guide to create cross-platform apps
