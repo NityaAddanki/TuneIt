@@ -31,6 +31,7 @@ npx expo start
 
 You can open the app in:
 
+- Web (type w after running npx expo start)
 - Development build
 - Android emulator
 - iOS simulator
